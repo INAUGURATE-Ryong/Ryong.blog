@@ -6,10 +6,9 @@ RUN apt install -y git
 RUN apt install cron
 
 RUN rm -rf /var/www/html
-RUN git clone https://github.com/INAUGURATE-Ryong/Ryong.blog.git
+RUN git clone https://github.com/INAUGURATE-Ryong/Ryong.blog.git /var/www/html
 
-COPY pull.sh /var/www/html
-COPY blog-pull-cronjob /etc/cron.d/
+COPY /var/www/html/blog-pull-cronjob /etc/cron.d/
 RUN crontab /etc/cron.d/blog-pull-cronjob
 
 CMD service cron start;nginx -g 'daemon off;'
