@@ -65,3 +65,67 @@ zdd_docker
 | BlogB | https://blogb.fly.dev/ |
 | LB | https://lb-server.fly.dev/ |
 
+## Docker Compose
+```
+
+# BUILD 
+$ docker build -t memento12/testblog-a -f zdd_docker/blogA/Dockerfile  zdd_docker/blogA/
+$ docker build -t memento12/testblog-b -f zdd_docker/blogB/Dockerfile  zdd_docker/blogB/
+$ sudo docker images
+REPOSITORY             TAG       IMAGE ID       CREATED              SIZE
+memento12/testblog-b   latest    767491be6235   About a minute ago   260MB
+memento12/testblog-a   latest    aedc2a90f5d2   About a minute ago   260MB
+
+$ sudo docker push memento12/testblog-a
+Using default tag: latest
+The push refers to repository [docker.io/memento12/testblog-a]
+4ba2d418a093: Pushed
+8d83284cd25f: Pushed
+331fcfe3a22c: Pushed
+e0b18b578156: Pushed
+0711a0c9bdd7: Pushed
+d280e4367266: Pushed
+2bf5c256d213: Pushed
+6f89c6a710a3: Pushed
+f9c44fabb1a3: Pushed
+d101c9453715: Mounted from library/ubuntu
+
+$ sudo docker push memento12/testblog-b
+Using default tag: latest
+The push refers to repository [docker.io/memento12/testblog-b]
+fa54ba4f654a: Pushed
+fa9d72590f51: Pushed
+331fcfe3a22c: Mounted from memento12/testblog-a
+e0b18b578156: Mounted from memento12/testblog-a
+0711a0c9bdd7: Mounted from memento12/testblog-a
+d280e4367266: Mounted from memento12/testblog-a
+2bf5c256d213: Mounted from memento12/testblog-a
+6f89c6a710a3: Mounted from memento12/testblog-a
+f9c44fabb1a3: Mounted from memento12/testblog-a
+d101c9453715: Mounted from memento12/testblog-a
+latest: digest: sha256:e166a6d8d3cdf6ccbd624cbb15ecaf6b5a4631843ec7c7702c0dbfe078dd186b size: 2414
+
+# compose run
+```
+docker compose -f zdd_docker/compose.yml  up -d --build --force-recreate
+
+[+] Running 14/14
+ ✔ nginx-proxy 13 layers [⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿]      0B/0B      Pulled                                                                                                      8.7s
+   ✔ e1caac4eb9d2 Pull complete                                                                                                                                      3.0s
+   ✔ 88f6f236f401 Pull complete                                                                                                                                      2.6s
+   ✔ c3ea3344e711 Pull complete                                                                                                                                      0.7s
+   ✔ cc1bb4345a3a Pull complete                                                                                                                                      1.4s
+   ✔ da8fa4352481 Pull complete                                                                                                                                      2.1s
+   ✔ c7f80e9cdab2 Pull complete                                                                                                                                      2.7s
+   ✔ 18a869624cb6 Pull complete                                                                                                                                      2.8s
+   ✔ 66ab28d11695 Pull complete                                                                                                                                      3.3s
+   ✔ 79b57e45edb0 Pull complete                                                                                                                                      3.4s
+   ✔ 2be787a40ace Pull complete                                                                                                                                      5.4s
+   ✔ 563a441cec03 Pull complete                                                                                                                                      4.0s
+   ✔ 4994460aae36 Pull complete                                                                                                                                      4.1s
+   ✔ 4f4fb700ef54 Pull complete                                                                                                                                      4.6s
+[+] Running 2/3
+ ⠹ Network awsgoo_default          Created                                                                                                                           1.2s
+ ✔ Container awsgoo-blog-1         Started                                                                                                                           0.6s
+ ✔ Container awsgoo-nginx-proxy-1  Started                                                                                                                           1.0s
+```
