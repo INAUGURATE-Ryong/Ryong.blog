@@ -65,3 +65,51 @@ zdd_docker
 | BlogB | https://blogb.fly.dev/ |
 | LB | https://lb-server.fly.dev/ |
 
+## Docker Compose
+```
+
+# BUILD 
+
+$ docker build -t memento12/testblog-a -f zdd_docker/blogA/Dockerfile  zdd_docker/blogA/  <- 이렇게 안되면 밑에처럼 Dockerfile경로 들어가서 따로따로 진행
+$ sudo docker build -t testblog-a .
+$ sudo docker tag testblog-a memento12/testblog-a:0.1.0
+
+$ sudo docker images
+REPOSITORY             TAG       IMAGE ID       CREATED              SIZE
+memento12/testblog-b   latest    767491be6235   About a minute ago   260MB
+memento12/testblog-a   latest    aedc2a90f5d2   About a minute ago   260MB
+
+$ sudo docker push memento12/testblog-a:0.1.0
+Using default tag: latest
+The push refers to repository [docker.io/memento12/testblog-a]
+4ba2d418a093: Pushed
+8d83284cd25f: Pushed
+331fcfe3a22c: Pushed
+e0b18b578156: Pushed
+0711a0c9bdd7: Pushed
+d280e4367266: Pushed
+2bf5c256d213: Pushed
+6f89c6a710a3: Pushed
+f9c44fabb1a3: Pushed
+d101c9453715: Mounted from library/ubuntu
+
+$ sudo docker push memento12/testblog-b
+Using default tag: latest
+The push refers to repository [docker.io/memento12/testblog-b]
+fa54ba4f654a: Pushed
+fa9d72590f51: Pushed
+331fcfe3a22c: Mounted from memento12/testblog-a
+e0b18b578156: Mounted from memento12/testblog-a
+0711a0c9bdd7: Mounted from memento12/testblog-a
+d280e4367266: Mounted from memento12/testblog-a
+2bf5c256d213: Mounted from memento12/testblog-a
+6f89c6a710a3: Mounted from memento12/testblog-a
+f9c44fabb1a3: Mounted from memento12/testblog-a
+d101c9453715: Mounted from memento12/testblog-a
+latest: digest: sha256:e166a6d8d3cdf6ccbd624cbb15ecaf6b5a4631843ec7c7702c0dbfe078dd186b size: 2414
+
+# compose run
+```
+docker compose -f zdd_docker/compose.yml  up -d --build --force-recreate
+
+```
