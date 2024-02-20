@@ -107,9 +107,10 @@ d280e4367266: Mounted from memento12/testblog-a
 f9c44fabb1a3: Mounted from memento12/testblog-a
 d101c9453715: Mounted from memento12/testblog-a
 latest: digest: sha256:e166a6d8d3cdf6ccbd624cbb15ecaf6b5a4631843ec7c7702c0dbfe078dd186b size: 2414
-
+```
 # compose run
 ```
 docker compose -f zdd_docker/compose.yml  up -d --build --force-recreate
 
 ```
+
