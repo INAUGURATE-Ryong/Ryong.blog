@@ -113,4 +113,39 @@ latest: digest: sha256:e166a6d8d3cdf6ccbd624cbb15ecaf6b5a4631843ec7c7702c0dbfe07
 docker compose -f zdd_docker/compose.yml  up -d --build --force-recreate
 
 ```
+# scale out/in
+```
+$ docker compose -f zdd_docker/compose.yml  up -d --scale blog=5
+```
 
+
+# compose down -> stop & remove
+```
+$ sudo docker compose -f zdd_docker/compose.yml ps -a
+NAME                   IMAGE                        COMMAND                  SERVICE       CREATED             STATUS             PORTS
+awsgoo-blog-1          memento12/testblog-a:0.1.0   "/bin/sh -c 'service…"   blog          About an hour ago   Up About an hour   80/tcp
+awsgoo-blog-2          memento12/testblog-a:0.1.0   "/bin/sh -c 'service…"   blog          About an hour ago   Up About an hour   80/tcp
+awsgoo-nginx-proxy-1   nginxproxy/nginx-proxy       "/app/docker-entrypo…"   nginx-proxy   About an hour ago   Up About an hour   0.0.0.0:9989->80/tcp, :::9989->80/tcp
+```
+```
+$ docker compose -f zdd_docker/compose.yml stop
+[+] Stopping 3/3
+ ✔ Container awsgoo-nginx-proxy-1  Stopped                                                                                                                                                                                           0.9s
+ ✔ Container awsgoo-blog-2         Stopped                                                                                                                                                                                          11.1s
+ ✔ Container awsgoo-blog-1         Stopped                                                                                                                                                                                          10.8s
+
+$ docker compose -f zdd_docker/compose.yml down
+[+] Running 4/4
+ ✔ Container awsgoo-nginx-proxy-1  Removed                                                                                                                                                                                           0.0s
+ ✔ Container awsgoo-blog-2         Removed                                                                                                                                                                                           0.0s
+ ✔ Container awsgoo-blog-1         Removed                                                                                                                                                                                           0.0s
+ ✔ Network awsgoo_default          Removed                                                                                                                                                                                           0.6s
+```
+# manual script
+```
+$ chmod +x manual-compose.sh
+$ ./manual-compose.sh
+```
+```
+
+ ```

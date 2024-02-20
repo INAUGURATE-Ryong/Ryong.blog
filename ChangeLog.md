@@ -7,4 +7,7 @@
 - [x] auto LB by compose
 
 ### 240219.2
-- [ ] load-test
+- [x] load-test
+
+### 240220.1
+- [ ] manual LB
